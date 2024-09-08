@@ -2,14 +2,17 @@ package middlewares
 
 import (
 	"net/http"
+	"fmt"
 )
 
 func CorsMiddlewares(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
+        fmt.Println("Origin received:", origin)
 
 		allowedOrigins := []string{
 			"https://fe-tb-berkah-jaya-750892348569.us-central1.run.app",
+			"http://localhost:3000",
 		}
 
 		for _, Allow := range allowedOrigins {

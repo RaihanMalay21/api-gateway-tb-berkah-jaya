@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 	"golang.org/x/net/http2"
 	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
 )
@@ -24,7 +25,29 @@ func ReverseProxy(target string) http.Handler {
         // Set custom Transport to support HTTP/2
         proxy.Transport = &http2.Transport{}
 
-		// Modify the request
+		pathMicroservices := []string{
+			"https://server-customer-tb-berkah-jaya-750892348569.us-central1.run.app",
+			"https://server-registry-tb-berkah-jaya-750892348569.us-central1.run.app",
+		}
+
+		PathPrefix := []string{
+			"/customer",
+			"/access",
+		}
+
+		for i, path := range pathMicroservices {
+			if path == url.String() {
+				r.URL.Path = strings.TrimPrefix(r.URL.Path, PathPrefix[i])
+				break
+			}
+		}
+		
+		log.Println("Proxying to:", url.String())
+		log.Println("Request URL:", r.URL.String())
+		log.Println("Request Host:", r.Host)
+		log.Println("Request Scheme:", r.URL.Scheme)
+
+        // Modify the request
         r.URL.Host = url.Host
         r.URL.Scheme = url.Scheme
         r.Header.Set("X-Forwarded-Host", r.Host)
