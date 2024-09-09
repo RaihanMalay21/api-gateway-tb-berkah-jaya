@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strings"
 	"golang.org/x/net/http2"
-	helper "github.com/RaihanMalay21/helper_TB_Berkah_Jaya"
+	helper "github.com/RaihanMalay21/api-gateway-tb-berkah-jaya/helper"
 )
 
 func ReverseProxy(target string) http.Handler {
