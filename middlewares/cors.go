@@ -14,7 +14,7 @@ func CorsMiddlewares(next http.Handler) http.Handler {
 			"https://fe-tb-berkah-jaya-750892348569.us-central1.run.app",
 			"http://localhost:3000",
 		}
-
+		fmt.Println("Access-Control-Allow-Origin before:", w.Header().Get("Access-Control-Allow-Origin"))
 		for _, Allow := range allowedOrigins {
 			if Allow == origin {
 				w.Header().Set("Access-Control-Allow-Origin", Allow)
@@ -24,8 +24,9 @@ func CorsMiddlewares(next http.Handler) http.Handler {
 				break
 			}
 		}
-
+		fmt.Println("Access-Control-Allow-Origin after:", w.Header().Get("Access-Control-Allow-Origin"))
 		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusOK)
 			return
 		}
 
